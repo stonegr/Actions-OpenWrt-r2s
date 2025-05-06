@@ -10,10 +10,11 @@
 # See /LICENSE for more information.
 #
 
-name: OpenWrt Builder
+name: Test
 
 on:
   repository_dispatch:
+  workflow_dispatch:
 
 jobs:
   build:
