@@ -1,0 +1,34 @@
+#
+# https://github.com/P3TERX/Actions-OpenWrt
+#
+# File: .github/workflows/openwrt-bulder.yml
+# Description: Build OpenWrt using GitHub Actions
+#
+# Copyright (c) 2019-2024 P3TERX <https://p3terx.com>
+#
+# This is free software, licensed under the MIT License.
+# See /LICENSE for more information.
+#
+
+name: OpenWrt Builder
+
+on:
+  repository_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@main
+
+    - name: Save configuration
+      run: |
+        echo "modify" > .config
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+        git add .config
+        git commit -m "Update .config"
+        git push
+        
