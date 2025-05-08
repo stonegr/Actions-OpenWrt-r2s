@@ -35,15 +35,9 @@ jobs:
       # 添加 continue-on-error 确保后续步骤能获取到状态
       continue-on-error: true
 
-    - name: Check Organize files
-      run: |
-        echo "Organize status: ${{ steps.organize.outputs.status }}"
-        # 如果 organize 步骤完全失败，output 可能不存在，需要处理
-        echo "Final status: ${{ steps.organize.outputs.status || 'failure' }}"
-
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
-      if: always() && (steps.organize.outputs.status != 'success' || steps.organize.conclusion == 'failure')
+      if: steps.organize.conclusion == 'failure'
       env:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
