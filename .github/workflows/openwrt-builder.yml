@@ -35,6 +35,7 @@ env:
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
+  MUTIL_BUILD: true
   TZ: Asia/Shanghai
 
 jobs:
@@ -127,6 +128,13 @@ jobs:
     - name: Check space usage
       if: (!cancelled())
       run: df -hT
+
+    - name: SSH connection to Actions Mutil
+      uses: P3TERX/ssh2actions@v1.0.0
+      if: env.MUTIL_BUILD == 'true'
+      env:
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
 
     - name: Upload bin directory
       uses: actions/upload-artifact@main
