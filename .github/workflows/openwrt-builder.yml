@@ -27,6 +27,7 @@ on:
 
 permissions:
   contents: write  # 写入仓库内容
+  actions: write   # 需要这个权限来删除工作流运行
   pull-requests: write  # 创建/修改 PR
   
 env:
