@@ -133,7 +133,7 @@ jobs:
 
     - name: SSH(check compile)
       uses: P3TERX/ssh2actions@v1.0.0
-      if: always() && steps.compile.outputs.status != 'success'
+      if: always() && !cancelled() && steps.compile.outputs.status != 'success'
       env:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -144,7 +144,7 @@ jobs:
 
     - name: SSH connection to Actions Mutil
       uses: P3TERX/ssh2actions@v1.0.0
-      if: (github.event.inputs.mutil_build == 'true' && github.event.inputs.mutil_build  != 'false')
+      if: (!cancelled() && github.event.inputs.mutil_build == 'true' && github.event.inputs.mutil_build  != 'false')
       env:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -169,7 +169,7 @@ jobs:
 
     - name: SSH(check organize)
       uses: P3TERX/ssh2actions@v1.0.0
-      if: always() && steps.organize.outputs.status != 'success'
+      if: always() && !cancelled() && steps.organize.outputs.status != 'success'
       env:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
