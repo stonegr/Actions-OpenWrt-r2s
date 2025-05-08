@@ -18,8 +18,8 @@ env:
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: 30 23 * * *
+  # schedule:
+  #   - cron: 30 23 * * *
 
 permissions:
   contents: write  # 写入仓库内容
