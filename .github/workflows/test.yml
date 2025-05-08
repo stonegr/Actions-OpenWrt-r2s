@@ -32,14 +32,18 @@ jobs:
         rm -rf packages
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "status=success" >> $GITHUB_OUTPUT
+      # 添加 continue-on-error 确保后续步骤能获取到状态
+      continue-on-error: true
 
-    - name: Organize files2
+    - name: Check Organize files
       run: |
-        echo steps.organize.outputs.status
+        echo "Organize status: ${{ steps.organize.outputs.status }}"
+        # 如果 organize 步骤完全失败，output 可能不存在，需要处理
+        echo "Final status: ${ { steps.organize.outputs.status || 'failure' }}"
 
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
-      if: steps.organize.outputs.status != 'success'
+      if: always() && (steps.organize.outputs.status != 'success' || steps.organize.conclusion == 'failure')
       env:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
