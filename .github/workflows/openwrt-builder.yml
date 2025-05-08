@@ -132,7 +132,7 @@ jobs:
 
     - name: SSH(check compile)
       uses: P3TERX/ssh2actions@v1.0.0
-      if: always() && steps.organize.outputs.status != 'success'
+      if: always() && steps.compile.outputs.status != 'success'
       env:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
