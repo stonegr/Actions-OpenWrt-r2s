@@ -20,6 +20,10 @@ on:
         description: 'SSH connection to Actions'
         required: false
         default: 'false'
+      mutil_build:
+        description: 'mutil_build'
+        required: false
+        default: 'false'
 
 permissions:
   contents: write  # 写入仓库内容
@@ -35,7 +39,6 @@ env:
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
-  MUTIL_BUILD: true
   TZ: Asia/Shanghai
 
 jobs:
@@ -131,7 +134,7 @@ jobs:
 
     - name: SSH connection to Actions Mutil
       uses: P3TERX/ssh2actions@v1.0.0
-      if: env.MUTIL_BUILD == 'true'
+      if: (github.event.inputs.mutil_build == 'true' && github.event.inputs.mutil_build  != 'false')
       env:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
