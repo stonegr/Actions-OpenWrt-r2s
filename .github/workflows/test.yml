@@ -33,6 +33,10 @@ jobs:
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "status=success" >> $GITHUB_OUTPUT
 
+    - name: Organize files2
+      run: |
+        echo steps.organize.outputs.status
+
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
       if: steps.organize.outputs.status != 'success'
