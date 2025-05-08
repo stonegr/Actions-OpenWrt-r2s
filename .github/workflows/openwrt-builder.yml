@@ -166,7 +166,7 @@ jobs:
       # 添加 continue-on-error 确保后续步骤能获取到状态
       continue-on-error: true
 
-    - name: SSH(check compile)
+    - name: SSH(check organize)
       uses: P3TERX/ssh2actions@v1.0.0
       if: always() && steps.organize.outputs.status != 'success'
       env:
